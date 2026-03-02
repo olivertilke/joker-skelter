@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
+  # Devise routes for User authentication (Sign up, login, etc.)
+  devise_for :users
+
+  # The root page (Visitor sees value proposition)
   root to: "pages#home"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  # Jokes routes (Browsing, creating, deleting)
+  resources :jokes, only: [:index, :show, :new, :create, :destroy] do
+    # Nested chat creation: A chat must belong to a specific joke
+    resources :chats, only: [:new, :create]
+  end
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Chat & Message routes
+  resources :chats, only: [:index, :show] do
+    # You only need to create messages inside a chat
+    resources :messages, only: [:create]
+  end
 end
