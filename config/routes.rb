@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get "chats/index"
-  get "chats/show"
-  get "jokes/new"
-  get "jokes/create"
   # Devise routes for User authentication (Sign up, login, etc.)
   devise_for :users
 

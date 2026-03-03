@@ -14,7 +14,7 @@ class MessagesController < ApplicationController
       system_prompt = "You are a highly cynical, stand-up comedian AI. You are currently helping the user tweak this specific joke: '#{@joke.content}'. The original keywords were: #{@joke.keywords}. The user will give you instructions on how to change or discuss the joke. Be witty, direct, and slightly dark."
 
       # 3. Call the AI
-      ai_response = RubyLLM.chat(
+      ai_response = RubyLlm.chat(
         prompt: @user_message.content
       ).with_instructions(system_prompt)
 
