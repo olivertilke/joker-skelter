@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+
+      <div class="card mb-4 bg-light">
+        <div class="card-body text-center">
+          <small class="text-muted">Discussing Joke:</small>
+          <p class="mb-0 fw-bold">"<%= @joke.content %>"</p>
+        </div>
+      </div>
+
+      <div class="chat-history mb-4 p-3 border rounded bg-white" style="min-height: 300px;">
+        <% @chat.messages.each do |message| %>
+          <div class="mb-3 <%= message.role == 'user' ? 'text-end' : 'text-start' %>">
+            <span class="badge <%= message.role == 'user' ? 'bg-primary' : 'bg-dark' %> mb-1">
+              <%= message.role.capitalize %>
+            </span>
+            <div class="p-2 border rounded d-inline-block <%= message.role == 'user' ? 'bg-light' : '' %>">
+              <%= message.content %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <%= simple_form_for [@chat, @message] do |f| %>
+        <div class="d-flex">
+          <%= f.input :content, label: false, placeholder: "Tell the AI what to change...", wrapper_html: { class: "flex-grow-1 me-2 mb-0" } %>
+          <%= f.submit "Send", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+
+      <%= link_to "Back to Joke", joke_path(@joke), class: "btn btn-outline-secondary mt-3" %>
+    </div>
+  </div>
+</div>
