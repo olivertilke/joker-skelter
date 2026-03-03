@@ -1,0 +1,19 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+      <div class="card shadow p-4">
+        <h2 class="mb-4 text-center">Tweak Your Joke</h2>
+
+        <%= simple_form_for(@joke) do |f| %>
+          <%= f.input :keywords, label: "The Context" %>
+
+          <%= f.input :content, label: "The Punchline", input_html: { rows: 4 } %>
+
+          <%= f.submit "Save Changes", class: "btn btn-warning w-100 mt-3" %>
+        <% end %>
+
+        <%= link_to "Cancel", joke_path(@joke), class: "btn btn-outline-secondary w-100 mt-2" %>
+      </div>
+    </div>
+  </div>
+</div>

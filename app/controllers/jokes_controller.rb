@@ -1,6 +1,6 @@
 class JokesController < ApplicationController
   # Make sure we find the joke before showing it
-  before_action :set_joke, only: [:show]
+  before_action :set_joke, only: %i[show edit update]
 
   def index
     @jokes = Joke.all.order(created_at: :desc) # Newest jokes first
@@ -38,11 +38,23 @@ class JokesController < ApplicationController
     end
   end
 
+  def edit
+    # @joke is found by before_action
+  end
+
+  def update
+    if @joke.update(joke_params)
+      redirect_to joke_path(@joke), notice: "Joke successfully tweaked!"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def joke_params
     # We only allow the user to submit keywords. The AI generates the content!
-    params.require(:joke).permit(:keywords)
+    params.require(:joke).permit(:keywords, :content)
   end
 
   def set_joke
