@@ -10,6 +10,7 @@
           <h2 class="mb-5">"<%= @joke.content %>"</h2>
 
           <%= link_to "Back to all jokes", jokes_path, class: "btn btn-secondary" %>
+          <%= link_to "Edit this joke", edit_joke_path(@joke), class: "btn btn-warning mx-2" %>
         </div>
       </div>
     </div>

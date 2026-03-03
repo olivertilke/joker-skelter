@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   # Jokes routes (Browsing, creating, deleting)
-  resources :jokes, only: [:index, :show, :new, :create, :destroy] do
+  resources :jokes, except: [:destroy] do
     # Nested chat creation: A chat must belong to a specific joke
     resources :chats, only: [:new, :create]
   end
