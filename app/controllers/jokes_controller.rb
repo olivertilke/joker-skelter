@@ -23,7 +23,7 @@ class JokesController < ApplicationController
 
     # 2. Call the AI (Using Le Wagon's RubyLLM setup)
     # We pass the user's keywords as the prompt, and inject our system_prompt
-    ai_response = RubyLLM.chat(
+    ai_response = RubyLlm.chat(
       prompt: "Here are my keywords: #{@joke.keywords}"
     ).with_instructions(system_prompt)
 
