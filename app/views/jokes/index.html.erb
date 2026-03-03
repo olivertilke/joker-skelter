@@ -1,0 +1,17 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4">The Joke Vault</h1>
+
+  <div class="row">
+    <% @jokes.each do |joke| %>
+      <div class="col-12 col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title text-muted">Keywords: <%= joke.keywords %></h5>
+            <p class="card-text fs-5">"<%= joke.content %>"</p>
+            <%= link_to "Read More", joke_path(joke), class: "btn btn-outline-primary mt-2" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

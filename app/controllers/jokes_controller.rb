@@ -1,4 +1,15 @@
 class JokesController < ApplicationController
+  # Make sure we find the joke before showing it
+  before_action :set_joke, only: [:show]
+
+  def index
+    @jokes = Joke.all.order(created_at: :desc) # Newest jokes first
+  end
+
+  def show
+    # @joke is already found by the before_action
+  end
+
   def new
     @joke = Joke.new
   end
@@ -13,7 +24,7 @@ class JokesController < ApplicationController
     # 2. Call the AI (Using Le Wagon's RubyLLM setup)
     # We pass the user's keywords as the prompt, and inject our system_prompt
     ai_response = RubyLLM.chat(
-      prompt: "Here are my keywords: #{@joke.keywords}",
+      prompt: "Here are my keywords: #{@joke.keywords}"
     ).with_instructions(system_prompt)
 
     # 3. Save the AI's response into our database column
@@ -32,5 +43,9 @@ class JokesController < ApplicationController
   def joke_params
     # We only allow the user to submit keywords. The AI generates the content!
     params.require(:joke).permit(:keywords)
+  end
+
+  def set_joke
+    @joke = Joke.find(params[:id])
   end
 end
