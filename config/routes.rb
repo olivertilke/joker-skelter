@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "jokes/new"
+  get "jokes/create"
   # Devise routes for User authentication (Sign up, login, etc.)
   devise_for :users
 
