@@ -17,7 +17,7 @@ class ChatsController < ApplicationController
   end
 
   def show
-    @chat = Chat.find(params[:id])
+    @chat = current_user.chats.find(params[:id])
     @joke = @chat.joke
     # We need an empty Message object for the input field at the bottom of the chat
     @message = Message.new

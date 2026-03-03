@@ -31,5 +31,8 @@ class RubyLlm
 
     # This digs through the OpenAI JSON response to pull out just the joke text
     response.dig("choices", 0, "message", "content")
+  rescue StandardError => e
+    Rails.logger.error("OpenAI API error: #{e.message}")
+    "Sorry, the AI couldn't generate a response right now. Please try again."
   end
 end
