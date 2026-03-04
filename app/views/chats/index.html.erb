@@ -1,2 +1,45 @@
-<h1>Chats#index</h1>
-<p>Find me in app/views/chats/index.html.erb</p>
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6 fw-bold text-white">My Joke Lab</h1>
+        <%= link_to "Create New Joke", new_joke_path, class: "btn btn-outline-light btn-sm" %>
+      </div>
+
+      <% if @chats.empty? %>
+        <div class="text-center py-5 bg-dark rounded-3">
+          <i class="bi bi-chat-left-quote fs-1 text-muted mb-3"></i>
+          <p class="text-muted">You haven't written any jokes yet.</p>
+          <%= link_to "Write Your First Joke", new_joke_path, class: "btn btn-primary mt-2" %>
+        </div>
+      <% else %>
+        <div class="list-group">
+          <% @chats.each do |chat| %>
+            <%# We link to the chat, but highlight the latest message %>
+            <% latest_message = chat.messages.last %>
+
+            <%= link_to chat_path(chat), class: "list-group-item list-group-item-action bg-dark text-white border-secondary mb-2 rounded-3" do %>
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1 text-warning fw-bold">Joke: <%= chat.joke.keywords.split(',').first.strip %></h5>
+                <small class="text-muted">
+                  <%= time_ago_in_words(latest_message.created_at) %> ago
+                </small>
+              </div>
+
+              <%# Truncate the latest message to fit in the list %>
+              <p class="mb-1 text-truncate" style="max-width: 80%;">
+                <%= latest_message.content %>
+              </p>
+
+              <small class="text-muted">
+                <%= chat.messages.count %> messages
+              </small>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
