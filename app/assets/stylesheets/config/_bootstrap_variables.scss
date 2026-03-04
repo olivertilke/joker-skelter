@@ -1,28 +1,66 @@
-// This is where you override default Bootstrap variables
-// 1. Find all Bootstrap variables that you can override at the end of each component's documentation under the `Sass variables` anchor
-// e.g. here are the ones you can override for the navbar https://getbootstrap.com/docs/5.3/components/navbar/#sass-variables
-// 2. These variables are defined with default value (see https://robots.thoughtbot.com/sass-default)
-// 3. You can override them below!
+// Joker Skelter — Bootstrap Variable Overrides
+// Dark theme with rounded, modern feel
 
-// General style
+// Typography
 $font-family-sans-serif: $body-font;
-$headings-font-family:   $headers-font;
-$body-bg:                $light-gray;
-$font-size-base:         1rem;
+$headings-font-family: $headers-font;
+$headings-font-weight: 600;
+$font-size-base: 1rem;
 
-// Colors
-$body-color: $gray;
-$primary:    $blue;
-$success:    $green;
-$info:       $yellow;
-$danger:     $red;
-$warning:    $orange;
+// Dark theme colors
+$body-bg: $dark-bg;
+$body-color: $text-primary;
 
-// Buttons & inputs' radius
-$border-radius-sm:            .0625rem;
-$border-radius:               .125rem;
-$border-radius-lg:            .25rem;
-$border-radius-xl:            .5rem;
-$border-radius-xxl:           1rem;
+// Bootstrap theme map
+$primary: $purple;
+$secondary: $dark-elevated;
+$success: $mint;
+$info: $purple-light;
+$warning: $gold;
+$danger: $coral;
+$dark: $dark-surface;
+$light: $text-primary;
 
-// Override other variables below!
+// Links
+$link-color: $purple-light;
+$link-hover-color: $electric-pink;
+
+// Buttons & inputs — rounded, modern
+$border-radius: 0.75rem;
+$border-radius-sm: 0.5rem;
+$border-radius-lg: 1rem;
+$border-radius-xl: 1.25rem;
+$border-radius-xxl: 1.5rem;
+
+$btn-border-radius: 0.75rem;
+$btn-padding-y: 0.625rem;
+$btn-padding-x: 1.5rem;
+$btn-font-weight: 600;
+
+// Cards
+$card-bg: $dark-surface;
+$card-border-color: $border-subtle;
+$card-border-radius: 1rem;
+$card-cap-bg: $dark-elevated;
+
+// Inputs
+$input-bg: $dark-elevated;
+$input-border-color: $border-subtle;
+$input-color: $text-primary;
+$input-placeholder-color: $text-dim;
+$input-focus-border-color: $purple;
+$input-focus-box-shadow: 0 0 0 0.2rem rgba($purple, 0.25);
+
+// Navbar
+$navbar-dark-color: $text-primary;
+$navbar-dark-hover-color: $purple-light;
+
+// Dropdowns
+$dropdown-bg: $dark-elevated;
+$dropdown-border-color: $border-subtle;
+$dropdown-link-color: $text-primary;
+$dropdown-link-hover-bg: $dark-surface;
+
+// Modals
+$modal-content-bg: $dark-surface;
+$modal-content-border-color: $border-subtle;
