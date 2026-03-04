@@ -1,35 +1,49 @@
-<div class="container mt-5">
+<div class="container mt-4 mb-5">
   <div class="row justify-content-center">
-    <div class="col-12 col-md-8">
+    <div class="col-12 col-lg-10 col-xl-8">
 
-      <div class="card mb-4 bg-light">
-        <div class="card-body text-center">
-          <small class="text-muted">Discussing Joke:</small>
-          <p class="mb-0 fw-bold">"<%= @joke.content %>"</p>
+      <!-- Context Header -->
+      <div class="card joke-context-card mb-4 rounded-4">
+        <div class="card-body text-center p-4">
+          <div class="text-uppercase small flex-shrink-0 mb-3" style="color: #A78BFA; font-weight: 700; letter-spacing: 1px;">
+            <i class="fas fa-ghost me-1"></i> Discussing Joke
+          </div>
+          <p class="mb-0 fw-bold joke-text">"<%= @joke.content %>"</p>
         </div>
       </div>
 
-      <div class="chat-history mb-4 p-3 border rounded bg-white" style="min-height: 300px;">
+      <!-- Chat Area -->
+      <div class="chat-container rounded-4 mb-4">
         <% @chat.messages.each do |message| %>
-          <div class="mb-3 <%= message.role == 'user' ? 'text-end' : 'text-start' %>">
-            <span class="badge <%= message.role == 'user' ? 'bg-primary' : 'bg-dark' %> mb-1">
-              <%= message.role.capitalize %>
+          <div class="chat-message <%= message.role == 'user' ? 'user' : 'ai' %>">
+            <span class="chat-role-label">
+              <%= message.role == 'user' ? 'You' : 'Joker AI' %>
             </span>
-            <div class="p-2 border rounded d-inline-block <%= message.role == 'user' ? 'bg-light' : '' %>">
-              <%= message.content %>
+            <div class="chat-bubble">
+              <%= simple_format(message.content, class: "mb-0") %>
             </div>
           </div>
         <% end %>
       </div>
 
+      <!-- Input Area -->
       <%= simple_form_for [@chat, @message] do |f| %>
-        <div class="d-flex">
-          <%= f.input :content, label: false, placeholder: "Tell the AI what to change...", wrapper_html: { class: "flex-grow-1 me-2 mb-0" } %>
-          <%= f.submit "Send", class: "btn btn-primary" %>
+        <div class="chat-input-wrapper d-flex align-items-center">
+          <%= f.input_field :content, 
+                            class: "form-control form-control-lg flex-grow-1", 
+                            placeholder: "Tell the AI what to change...", 
+                            autocomplete: "off" %>
+          <button type="submit" class="btn btn-send shadow-sm ms-2">
+            <i class="fas fa-paper-plane"></i>
+          </button>
         </div>
       <% end %>
 
-      <%= link_to "Back to Joke", joke_path(@joke), class: "btn btn-outline-secondary mt-3" %>
+      <div class="text-center mt-4">
+        <%= link_to joke_path(@joke), class: "btn btn-outline-secondary rounded-pill px-4" do %>
+          <i class="fas fa-arrow-left me-2"></i> Vault
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
