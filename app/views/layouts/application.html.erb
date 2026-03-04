@@ -3,6 +3,7 @@
   <head>
     <title><%= content_for(:title) || "Joker Skelter" %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="AI-powered joke generator — give it keywords, get back fire. Chat with the AI to tweak your jokes.">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Joker Skelter">
     <meta name="mobile-web-app-capable" content="yes">
@@ -24,8 +25,66 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="container">
+        <%= link_to root_path, class: "navbar-brand" do %>
+          <span class="brand-icon">🃏</span> Joker Skelter
+        <% end %>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <%= link_to "Joke Vault", jokes_path, class: "nav-link #{'active' if controller_name == 'jokes' && action_name == 'index'}" %>
+            </li>
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to "My Chats", chats_path, class: "nav-link #{'active' if controller_name == 'chats' && action_name == 'index'}" %>
+              </li>
+            <% end %>
+          </ul>
+
+          <div class="d-flex align-items-center gap-3">
+            <% if user_signed_in? %>
+              <%= link_to new_joke_path, class: "btn btn-primary btn-sm" do %>
+                <i class="fas fa-bolt me-1"></i> Generate Joke
+              <% end %>
+              <%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link text-muted" %>
+            <% else %>
+              <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+              <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-primary btn-sm" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <% if notice.present? %>
+      <div class="flash-container">
+        <div class="container">
+          <div class="alert alert-success alert-dismissible fade show flash-alert" role="alert">
+            <i class="fas fa-check-circle me-2"></i> <%= notice %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if alert.present? %>
+      <div class="flash-container">
+        <div class="container">
+          <div class="alert alert-danger alert-dismissible fade show flash-alert" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i> <%= alert %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

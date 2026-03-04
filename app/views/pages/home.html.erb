@@ -1,2 +1,77 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<% content_for(:title, "Joker Skelter — AI-Powered Joke Generator") %>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8 text-center">
+        <div class="hero-badge mb-4">
+          <span>🤖 Powered by AI</span>
+        </div>
+
+        <h1 class="hero-title">
+          Give it keywords.<br>
+          Get back <span class="text-gradient">fire</span>. 🔥
+        </h1>
+
+        <p class="hero-subtitle">
+          Joker Skelter is an AI-powered joke generator. Toss in a few keywords,
+          and our cynical comedian AI will craft you a punchline. Not happy? Chat with the AI to tweak it.
+        </p>
+
+        <div class="hero-cta">
+          <% if user_signed_in? %>
+            <%= link_to new_joke_path, class: "btn btn-primary btn-lg hero-btn-primary" do %>
+              <i class="fas fa-bolt me-2"></i> Generate a Joke
+            <% end %>
+            <%= link_to "Browse the Vault", jokes_path, class: "btn btn-outline-light btn-lg hero-btn-secondary" %>
+          <% else %>
+            <%= link_to new_user_registration_path, class: "btn btn-primary btn-lg hero-btn-primary" do %>
+              <i class="fas fa-rocket me-2"></i> Get Started — It's Free
+            <% end %>
+            <%= link_to "Sign In", new_user_session_path, class: "btn btn-outline-light btn-lg hero-btn-secondary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-12 col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>AI-Powered Jokes</h3>
+          <p>Enter a few keywords and let our cynical AI comedian craft the perfect punchline in seconds.</p>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>Chat & Tweak</h3>
+          <p>Not quite right? Open a live chat with the AI to refine, twist, or completely rework the joke.</p>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">🃏</div>
+          <h3>Your Joke Vault</h3>
+          <p>All your generated jokes are saved in your personal vault. Browse, edit, and revisit anytime.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,10 +1,21 @@
-// Define variables for your color scheme
+// Joker Skelter — Dark & Moody Color Palette
+// Deep purples + electric accents for that "comedy underground" vibe
 
-// For example:
-$red: #FD1015;
-$blue: #0D6EFD;
-$yellow: #FFC65A;
-$orange: #E67E22;
-$green: #1EDD88;
-$gray: #0E0000;
-$light-gray: #F4F4F4;
+$dark-bg:       #0F0E17;    // Near-black with a hint of blue
+$dark-surface:  #1A1A2E;    // Card backgrounds
+$dark-elevated: #232340;    // Elevated surfaces (navbar, inputs)
+
+$purple:        #7C3AED;    // Primary violet
+$purple-light:  #A78BFA;    // Lighter variant for hover states
+$purple-dark:   #5B21B6;    // Darker variant for active states
+
+$electric-pink: #E040FB;    // Accent for highlights
+$gold:          #FBBF24;    // Warning / emphasis
+$mint:          #34D399;    // Success / positive
+$coral:         #F87171;    // Danger / destructive
+
+$text-primary:  #EDEDF0;    // Main text on dark
+$text-muted:    #9CA3AF;    // Secondary text
+$text-dim:      #6B7280;    // Tertiary / placeholder text
+
+$border-subtle: rgba(124, 58, 237, 0.2); // Subtle purple borders
