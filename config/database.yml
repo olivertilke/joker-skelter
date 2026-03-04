@@ -88,6 +88,7 @@ production:
   primary: &primary_production
     <<: *default
     database: joker_skelter_production
+    url: <%= ENV['DATABASE_URL'] %>
     username: joker_skelter
     password: <%= ENV["JOKER_SKELTER_DATABASE_PASSWORD"] %>
   cache:
