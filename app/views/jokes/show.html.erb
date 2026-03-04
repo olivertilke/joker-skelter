@@ -9,6 +9,12 @@
           <p class="text-muted mb-4">Based on: <strong><%= @joke.keywords %></strong></p>
           <h2 class="mb-5">"<%= @joke.content %>"</h2>
 
+          <div data-controller="tts" data-tts-text-value="<%= @joke.content %>" class="mb-4">
+            <button data-action="click->tts#speak" class="btn btn-info btn-lg">
+              <i class="fas fa-volume-up"></i> Read Joke Out Loud
+            </button>
+          </div>
+
           <%= link_to "Back to all jokes", jokes_path, class: "btn btn-secondary" %>
           <%= link_to "Edit this joke", edit_joke_path(@joke), class: "btn btn-warning mx-2" %>
           <%= button_to "Chat with AI to tweak this", joke_chats_path(@joke), method: :post, class: "btn btn-dark mx-2" %>
