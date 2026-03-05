@@ -37,6 +37,7 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+gem "cloudinary"
 gem "image_processing", "~> 1.2"
 
 gem "sprockets-rails"
@@ -51,6 +52,7 @@ gem 'ruby-lsp'
 
 # Insert the Ruby LLM
 gem 'ruby-openai'
+gem 'pdf-reader'
 gem 'dotenv-rails', groups: %i[development test]
 
 group :development, :test do
