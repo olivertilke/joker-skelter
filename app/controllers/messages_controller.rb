@@ -47,6 +47,7 @@ class MessagesController < ApplicationController
 
       redirect_to chat_path(@chat)
     else
+      @message = @user_message
       render "chats/show", status: :unprocessable_entity
     end
   end

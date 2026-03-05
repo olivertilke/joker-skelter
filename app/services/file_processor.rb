@@ -94,7 +94,7 @@ class FileProcessor
       tmpfile_with_ext = "#{tmpfile.path}#{ext}"
       FileUtils.cp(tmpfile.path, tmpfile_with_ext)
 
-      response = @client.audio.transcriptions.create(
+      response = @client.audio.transcribe(
         parameters: {
           model: "whisper-1",
           file: File.open(tmpfile_with_ext)
