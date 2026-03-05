@@ -32,6 +32,25 @@ export default class extends Controller {
       }
     }
 
+    // 🎤 When the joke finishes being read, fire the canned laughter!
+    utterance.onend = () => {
+      this.playCannedLaughter()
+    }
+
     window.speechSynthesis.speak(utterance)
+  }
+
+  playCannedLaughter() {
+    const audio = new Audio("/canned_laughter.mp3")
+    audio.play().catch(err => {
+      // Silently fail if audio can't play (e.g. browser autoplay policy)
+      console.warn("Canned laughter couldn't play:", err)
+    })
+
+    // Stop playback after 5 seconds
+    setTimeout(() => {
+      audio.pause()
+      audio.currentTime = 0
+    }, 5000)
   }
 }

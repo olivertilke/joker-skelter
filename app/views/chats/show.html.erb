@@ -1,52 +1,78 @@
-<div class="container mt-4 mb-5">
+<div class="container-fluid px-3 px-md-4">
   <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-xl-8">
 
-      <!-- Context Header -->
-      <div class="card joke-context-card mb-4 rounded-4">
-        <div class="card-body text-center p-4">
-          <div class="text-uppercase small flex-shrink-0 mb-3" style="color: #A78BFA; font-weight: 700; letter-spacing: 1px;">
-            <i class="fas fa-ghost me-1"></i> Discussing Joke
-          </div>
-          <p class="mb-0 fw-bold joke-text">"<%= @joke.content %>"</p>
-        </div>
-      </div>
+      <div class="chat-page-wrapper">
 
-      <!-- Chat Area -->
-      <div class="chat-container rounded-4 mb-4">
-        <% @chat.messages.each do |message| %>
-          <div class="chat-message <%= message.role == 'user' ? 'user' : 'ai' %>">
-            <span class="chat-role-label">
-              <%= message.role == 'user' ? 'You' : 'Joker AI' %>
-            </span>
-            <div class="chat-bubble">
-              <%= simple_format(message.content, class: "mb-0") %>
+        <!-- Joke Context Header (pinned at top) -->
+        <div class="card joke-context-card mb-3 rounded-4 flex-shrink-0">
+          <div class="card-body text-center py-3 px-4">
+            <div class="text-uppercase small mb-2" style="color: #A78BFA; font-weight: 700; letter-spacing: 1px;">
+              <i class="fas fa-ghost me-1"></i> Discussing Joke
             </div>
+            <p class="mb-0 fw-bold joke-text">"<%= @joke.content %>"</p>
           </div>
-        <% end %>
-      </div>
-
-      <!-- Input Area -->
-      <%= simple_form_for [@chat, @message], html: { multipart: true } do |f| %>
-        <div class="chat-input-wrapper d-flex align-items-center">
-          <%= f.input_field :content,
-                            class: "form-control form-control-lg flex-grow-1",
-                            placeholder: "Tell the AI what to change...",
-                            autocomplete: "off" %>
-          <button type="submit" class="btn btn-send shadow-sm ms-2">
-            <i class="fas fa-paper-plane"></i>
-          </button>
         </div>
-        <div class="mt-2">
-          <%= f.input :file, as: :file, label: "Upload a file (PDF, image, or audio)" %>
-        </div>
-      <% end %>
 
-      <div class="text-center mt-4">
-        <%= link_to joke_path(@joke), class: "btn btn-outline-secondary rounded-pill px-4" do %>
-          <i class="fas fa-arrow-left me-2"></i> Vault
-        <% end %>
-      </div>
+        <!-- Scrollable Messages Area -->
+        <div class="chat-messages-area" id="chat-messages">
+          <% if @chat.messages.empty? %>
+            <div class="text-center py-5" style="color: rgba(255,255,255,0.25);">
+              <i class="fas fa-comment-slash fa-2x mb-3 d-block"></i>
+              <p class="mb-0 small">No messages yet. Ask the AI to tweak the joke!</p>
+            </div>
+          <% else %>
+            <% @chat.messages.each do |message| %>
+              <div class="chat-message <%= message.role == 'user' ? 'user' : 'ai' %>">
+                <span class="chat-role-label">
+                  <%= message.role == 'user' ? 'You' : 'Joker AI' %>
+                </span>
+                <div class="chat-bubble">
+                  <%= simple_format(message.content, class: "mb-0") %>
+                  <% if message.gif_url.present? %>
+                    <div class="mt-3 text-center">
+                      <img src="<%= message.gif_url %>" alt="Joke GIF" class="img-fluid rounded-3 shadow-sm" style="max-width: 250px;">
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+
+        <!-- Input Panel (always visible at bottom) -->
+        <div class="chat-input-panel">
+          <%= simple_form_for [@chat, @message], html: { multipart: true } do |f| %>
+            <div class="chat-input-wrapper">
+              <%= f.input_field :content,
+                                class: "form-control",
+                                placeholder: "Tell the AI what to change...",
+                                autocomplete: "off" %>
+              <button type="submit" class="btn btn-send shadow-sm">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+            <div class="chat-file-input">
+              <%= f.input :file, as: :file, label: "📎 Upload a file (PDF, image, or audio)" %>
+            </div>
+          <% end %>
+
+          <div class="text-center mt-3">
+            <%= link_to joke_path(@joke), class: "btn btn-outline-secondary btn-sm rounded-pill px-4" do %>
+              <i class="fas fa-arrow-left me-2"></i>Back to Vault
+            <% end %>
+          </div>
+        </div>
+
+      </div><!-- /.chat-page-wrapper -->
     </div>
   </div>
 </div>
+
+<script>
+  // Auto-scroll message area to the bottom on page load
+  const chatMessages = document.getElementById("chat-messages");
+  if (chatMessages) {
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+</script>

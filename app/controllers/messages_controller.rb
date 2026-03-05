@@ -12,8 +12,19 @@ class MessagesController < ApplicationController
 
       # 2. Define the Business Asset System Prompt
       # VETO-RULE: We MUST inject the joke content here, otherwise the AI is blind!
+      history_text = @chat.messages.where.not(id: @user_message.id, content: nil).order(:created_at).map do |msg|
+        "#{msg.role.upcase}: #{msg.content}"
+      end.join("\n")
+
       system_prompt = <<~PROMPT
         You are a hilarious, immature stand-up comedian who specializes in low-brow, toilet humor. You are currently helping the user tweak their joke, but keep your responses funny, gross, and unapologetically full of bathroom jokes, farts, and bodily functions.
+
+        CURRENT JOKE CONTEXT:
+        Keywords: #{@joke.keywords}
+        Original Joke: "#{@joke.content}"
+
+        CHAT HISTORY SO FAR:
+        #{history_text}
 
         ### CONSTRAINTS:
         1. NO FLUFF: Do not explain the joke. Do not use introductory phrases, polite transitions, or "Here's one for you."
@@ -38,11 +49,15 @@ class MessagesController < ApplicationController
         ).with_instructions(system_prompt)
       end
 
-      # 4. Instantly save the AI's response as a new Message
+      # 4. Fetch a matching GIF for the AI's improved joke
+      gif_url = PunchlineGifService.new(ai_response).call
+
+      # 5. Instantly save the AI's response as a new Message, including the GIF
       Message.create!(
         chat: @chat,
         role: "assistant",
-        content: ai_response
+        content: ai_response,
+        gif_url: gif_url
       )
 
       redirect_to chat_path(@chat)
