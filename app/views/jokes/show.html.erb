@@ -5,11 +5,21 @@
         <div class="card-header bg-primary text-white">
           Joke Details
         </div>
-        <div class="card-body text-center p-5">
-          <p class="text-muted mb-4">Based on: <strong><%= @joke.keywords %></strong></p>
-          <h2 class="mb-5">"<%= @joke.content %>"</h2>
+        <div class="card-body text-center p-5" style="padding-top: 1.5rem !important; padding-bottom: 1.5rem !important;">
+          <p class="text-muted mb-2">Based on: <strong><%= @joke.keywords %></strong></p>
+          <h2 class="mb-3" style="font-size: 1.4rem;">"<%= @joke.content %>"</h2>
 
-          <div data-controller="tts" data-tts-text-value="<%= @joke.content %>" class="mb-4">
+          <% if @joke.gif_url.present? %>
+            <div class="gif-container mb-4">
+              <img
+                src="<%= @joke.gif_url %>"
+                alt="Related GIF"
+                class="joke-gif"
+              />
+            </div>
+          <% end %>
+
+          <div data-controller="tts" data-tts-text-value="<%= @joke.content %>" class="mb-2">
             <button data-action="click->tts#speak" class="btn btn-info btn-lg">
               <i class="fas fa-volume-up"></i> Read Joke Out Loud
             </button>
@@ -23,3 +33,33 @@
     </div>
   </div>
 </div>
+
+<style>
+  .gif-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .joke-gif {
+    display: block;
+    max-width: 380px;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    animation: gifFadeIn 0.7s ease-out;
+    border: 3px solid rgba(13, 110, 253, 0.15);
+  }
+
+  @keyframes gifFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.92) translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+</style>
