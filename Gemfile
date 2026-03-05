@@ -52,6 +52,7 @@ gem 'ruby-lsp'
 
 # Insert the Ruby LLM
 gem 'ruby-openai'
+gem 'pdf-reader'
 gem 'dotenv-rails', groups: %i[development test]
 
 group :development, :test do

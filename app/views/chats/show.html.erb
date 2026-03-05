@@ -27,7 +27,7 @@
       </div>
 
       <!-- Input Area -->
-      <%= simple_form_for [@chat, @message] do |f| %>
+      <%= simple_form_for [@chat, @message], html: { multipart: true } do |f| %>
         <div class="chat-input-wrapper d-flex align-items-center">
           <%= f.input_field :content,
                             class: "form-control form-control-lg flex-grow-1",
