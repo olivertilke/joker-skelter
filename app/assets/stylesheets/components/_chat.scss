@@ -1,0 +1,198 @@
+// ── Chat Page Layout ──────────────────────────────────────────────
+
+// The outer wrapper fills available viewport height so the input
+// is always on screen without any page-level scrolling.
+.chat-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    // viewport minus navbar (~64px) and a little breathing room
+    height: calc(100vh - 80px);
+    padding: 1rem 0 0.5rem;
+}
+
+// Joke header card – stays fixed at top
+.joke-context-card {
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+// The scrollable message list grows to fill remaining space
+.chat-messages-area {
+    flex: 1 1 0;
+    overflow-y: auto;
+    border-radius: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    // Smooth scroll experience
+    scroll-behavior: smooth;
+
+    // Custom scrollbar (subtle)
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(167, 139, 250, 0.3);
+        border-radius: 3px;
+    }
+}
+
+// Input panel – always visible at the bottom
+.chat-input-panel {
+    flex-shrink: 0;
+    padding-top: 0.75rem;
+}
+
+.chat-input-wrapper {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.875rem;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: border-color 0.2s;
+
+    &:focus-within {
+        border-color: rgba(167, 139, 250, 0.5);
+    }
+
+    input[type="text"],
+    input:not([type="file"]) {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        color: #f1f5f9;
+        font-size: 1rem;
+        flex: 1;
+        padding: 0.25rem 0;
+
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
+            background: transparent;
+        }
+    }
+}
+
+.btn-send {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    border: none;
+    border-radius: 0.625rem;
+    color: #fff;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.15s, opacity 0.15s;
+
+    &:hover {
+        opacity: 0.85;
+        transform: scale(1.05);
+        color: #fff;
+    }
+
+    &:active {
+        transform: scale(0.97);
+    }
+}
+
+// File upload row – compact
+.chat-file-input {
+    margin-top: 0.4rem;
+
+    .form-group {
+        margin-bottom: 0;
+    }
+
+    label {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 0.2rem;
+    }
+
+    input[type="file"] {
+        font-size: 0.8rem;
+        color: #cbd5e1;
+        cursor: pointer;
+
+        &::file-selector-button {
+            padding: 0.25rem 0.75rem;
+            margin-right: 0.75rem;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 0.4rem;
+            background: rgba(139, 92, 246, 0.15);
+            color: #c4b5fd;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+
+            &:hover {
+                background: rgba(139, 92, 246, 0.4);
+                color: #fff;
+            }
+        }
+    }
+}
+
+// ── Chat bubbles ──────────────────────────────────────────────────
+.chat-message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    &.user {
+        align-items: flex-end;
+    }
+
+    &.ai {
+        align-items: flex-start;
+    }
+}
+
+.chat-role-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.chat-bubble {
+    max-width: 78%;
+    padding: 0.7rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.94rem;
+    line-height: 1.55;
+
+    .chat-message.user & {
+        background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        color: #fff;
+        border-bottom-right-radius: 0.25rem;
+    }
+
+    .chat-message.ai & {
+        background: rgba(255, 255, 255, 0.07);
+        color: #e2e8f0;
+        border-bottom-left-radius: 0.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+}
