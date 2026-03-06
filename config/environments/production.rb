@@ -52,16 +52,16 @@ Rails.application.configure do
   # Use async for jobs (Heroku doesn't support solid_queue's multi-db setup)
   config.active_job.queue_adapter = :async
 
-  # ── Brevo (Sendinblue) SMTP for production email delivery ──────────
+  # ── SendGrid SMTP for production email delivery ──────────
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-    address:              "smtp-relay.brevo.com",
+    address:              "smtp.sendgrid.net",
     port:                 587,
-    user_name:            ENV.fetch("BREVO_SMTP_LOGIN"),
-    password:             ENV.fetch("BREVO_SMTP_KEY"),
-    authentication:       :login,
+    user_name:            "apikey",
+    password:             ENV.fetch("SENDGRID_API_KEY"),
+    authentication:       :plain,
     enable_starttls_auto: true
   }
 
