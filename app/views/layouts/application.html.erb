@@ -67,7 +67,7 @@
     <% if notice.present? %>
       <div class="flash-container">
         <div class="container">
-          <div class="alert alert-success alert-dismissible fade show flash-alert" role="alert">
+          <div class="alert alert-success alert-dismissible fade show flash-alert" role="alert" data-controller="flash">
             <i class="fas fa-check-circle me-2"></i> <%= notice %>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
           </div>
@@ -77,7 +77,7 @@
     <% if alert.present? %>
       <div class="flash-container">
         <div class="container">
-          <div class="alert alert-danger alert-dismissible fade show flash-alert" role="alert">
+          <div class="alert alert-danger alert-dismissible fade show flash-alert" role="alert" data-controller="flash">
             <i class="fas fa-exclamation-circle me-2"></i> <%= alert %>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
           </div>
