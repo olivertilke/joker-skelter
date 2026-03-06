@@ -19,8 +19,36 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <%# Meta tags caching the digested stylesheet URLs %>
+    <meta name="theme-dark-url" content="<%= stylesheet_path("application") %>">
+    <meta name="theme-ugly-vomit-url" content="<%= stylesheet_path("application_ugly_vomit") %>">
+    
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%# Prevent theme flash (FOUC) by injecting the CSS directly %>
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme') || 'dark';
+        var darkUrl = document.querySelector('meta[name="theme-dark-url"]').content;
+        var uglyUrl = document.querySelector('meta[name="theme-ugly-vomit-url"]').content;
+        
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.id = 'theme-stylesheet';
+        link.dataset.turboTrack = 'reload';
+        
+        if (theme === 'ugly-vomit') {
+          link.href = uglyUrl;
+          document.documentElement.setAttribute('data-theme', 'ugly-vomit');
+        } else {
+          link.href = darkUrl;
+        }
+        document.head.appendChild(link);
+      })();
+    </script>
+    <noscript>
+      <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    </noscript>
+
     <%= javascript_importmap_tags %>
   </head>
 
@@ -56,6 +84,12 @@
           </ul>
 
           <div class="d-flex align-items-center gap-3">
+            <div class="theme-selector me-2" data-controller="theme">
+              <select class="form-select form-select-sm theme-select" data-theme-target="select" data-action="change->theme#change">
+                <option value="dark">Dark Mode</option>
+                <option value="ugly-vomit">Ugly Vomit</option>
+              </select>
+            </div>
             <% if user_signed_in? %>
               <%= link_to new_joke_path, class: "btn btn-primary btn-sm" do %>
                 <i class="fas fa-bolt me-1"></i> Generate Joke

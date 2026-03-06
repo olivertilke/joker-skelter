@@ -59,3 +59,23 @@
     box-shadow: 0 0 0 0.2rem rgba($purple, 0.25);
   }
 }
+
+.theme-select {
+  background-color: rgba($dark-elevated, 0.8);
+  border: 1px solid $border-subtle !important;
+  color: $text-primary !important;
+  font-size: 0.85rem;
+  padding: 0.25rem 2rem 0.25rem 0.75rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba($purple, 0.25);
+    background-color: $dark-elevated;
+  }
+
+  option {
+    background-color: #1A1A2E;
+    color: #EDEDF0;
+  }
+}
