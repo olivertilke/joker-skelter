@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   # The root page (Visitor sees value proposition)
   root to: "pages#home"
 
+  # Admin panel (protected by Admin::BaseController)
+  namespace :admin do
+    resources :users, only: [:index, :destroy]
+  end
+
   # Jokes routes (Browsing, creating, deleting)
   resources :jokes, except: [:destroy] do
     # Nested chat creation: A chat must belong to a specific joke
