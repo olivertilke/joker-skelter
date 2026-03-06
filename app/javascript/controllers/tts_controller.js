@@ -21,14 +21,17 @@ export default class extends Controller {
     utterance.pitch = 1.7
     utterance.rate = 1.1
 
-    // Try to find a distinct voice (like "Google UK English Female" or something recognizable)
+    // Ensure the language is strictly British English
+    utterance.lang = "en-GB"
+
+    // Try to explicitly find a British voice if voices are loaded
     const voices = window.speechSynthesis.getVoices()
     if (voices.length > 0) {
-      // Very basic attempt: just pick the first one that isn't the absolute default if possible,
-      // or specifically look for one with "Female" or "UK" in it for comedic variety.
-      const funnyVoice = voices.find(v => v.name.includes("UK") || v.name.includes("Female"))
-      if (funnyVoice) {
-        utterance.voice = funnyVoice
+      // Prioritize en-GB lang attribute, or names with UK / British
+      const britishVoice = voices.find(v => v.lang === "en-GB" || v.lang === "en_GB") || 
+                           voices.find(v => v.name.includes("UK") || v.name.includes("British"))
+      if (britishVoice) {
+        utterance.voice = britishVoice
       }
     }
 
